@@ -1,0 +1,12 @@
+*
+!app/*
+!bin/*
+!config/*
+config/master.key
+!db/*
+!public/*
+!.ruby-version
+!config.ru
+!Gemfile
+!Gemfile.lock
+!Rakefile

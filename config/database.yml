@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: localhost
+  username: lightwords
+  password: 123
+
+development:
+  <<: *default
+  database: lightwords_development
+
+test:
+  <<: *default
+  database: lightwords_test
+
+production:
+  <<: *default
+  database: lightwords_production
+  host: <%= Rails.application.credentials.dig(:postgres, :host) %>
+  username: <%= Rails.application.credentials.dig(:postgres, :username) %>
+  password: <%= Rails.application.credentials.dig(:postgres, :password) %>

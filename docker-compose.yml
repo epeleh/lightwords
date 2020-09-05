@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  database:
+    image: postgres:12
+    restart: always
+    environment:
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - ~/srv/data/postgres:/var/lib/postgresql/data \
+
+  cache:
+    image: redis:6
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - ~/srv/data/redis:/data
+    entrypoint: redis-server --appendonly yes
+
+  server:
+    image: epeleh/lightwords:latest
+    restart: always
+    depends_on:
+      - database
+      - cache
+    environment:
+      RAILS_MASTER_KEY: $RAILS_MASTER_KEY
+      RAILS_HOST: lightwords.ru
+    ports:
+      - "3000:3000"
+    volumes:
+      - ~/srv/data/rails/log:/data/log
+      - ~/srv/data/rails/tmp:/data/tmp
+
+  client:
+    # TODO: change to nginx
+    image: epeleh/lightwords-client:latest
+    restart: always
+    depends_on:
+      - server
+    ports:
+      - "80:80"
