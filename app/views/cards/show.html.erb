@@ -1,0 +1,9 @@
+<h2># <%= @card.id %></h2>
+<ul>
+  <% @card.words.sort_by(&:id).pluck(:text).map!(&:upcase_first).each do |word| %>
+    <li><%= link_to(word, "https://ru.wikipedia.org/wiki/#{word}") %></li>
+  <% end %>
+</ul>
+<button>
+  <%= link_to('next', root_path) %>
+</button>
