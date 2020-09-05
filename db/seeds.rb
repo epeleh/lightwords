@@ -5,3 +5,5 @@ Rails.root.join('db', 'seeds').glob('*.txt').map! do |file|
 end.flatten!.each do |word|
   Word.create!(text: word)
 end
+
+AddCardsJob.perform_later
