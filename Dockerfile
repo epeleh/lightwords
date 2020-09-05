@@ -36,8 +36,6 @@ RUN eval "$(rbenv init -)" \
 
 ENV RAILS_ENV production
 ARG RAILS_MASTER_KEY
-ARG RAILS_HOST
-ARG RAILS_JOBS
 EXPOSE 3000
 
 CMD eval "$(rbenv init -)" \
