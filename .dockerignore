@@ -6,7 +6,11 @@ config/master.key
 !db/*
 !public/*
 !.ruby-version
+!babel.config.js
 !config.ru
 !Gemfile
 !Gemfile.lock
 !Rakefile
+!package.json
+!postcss.config.js
+!yarn.lock

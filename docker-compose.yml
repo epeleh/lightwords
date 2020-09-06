@@ -30,18 +30,9 @@ services:
       - cache
     environment:
       RAILS_MASTER_KEY: $RAILS_MASTER_KEY
-      RAILS_HOST: lightwords.ru
+      RAILS_SERVE_STATIC_FILES: "true"
     ports:
-      - "3000:3000"
+      - "80:3000"
     volumes:
       - ~/srv/data/rails/log:/data/log
       - ~/srv/data/rails/tmp:/data/tmp
-
-  client:
-    # TODO: change to nginx
-    image: epeleh/lightwords-client:latest
-    restart: always
-    depends_on:
-      - server
-    ports:
-      - "80:80"
