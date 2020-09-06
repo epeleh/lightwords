@@ -6,6 +6,6 @@ class Api::CardsController < ApplicationController
   end
 
   def show
-    render json: Card.find(params[:id])
+    render json: params[:id] == 'rand' ? random_card : Card.find(params[:id])
   end
 end

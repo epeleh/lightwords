@@ -13,3 +13,15 @@ require("turbolinks").start()
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+window.onload = function() {
+  document.querySelector('#card-next a').onclick = function() {
+    const http = new XMLHttpRequest()
+
+    http.onload = function() { location.replace(JSON.parse(this.responseText).id) }
+    http.open('GET', '/api/cards/rand', true)
+    http.send()
+
+    return false
+  }
+}
