@@ -22,7 +22,9 @@ group :development, :test do
 end
 
 group :development do
+  gem 'guard-livereload', require: false
   gem 'listen', '~> 3.2'
+  gem 'rack-livereload'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
