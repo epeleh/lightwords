@@ -16,7 +16,7 @@
 
 $text-color: #fff;
 $text-shadow-color: #f60;
-$line-color: #f605;
+$line-color: rgba($text-shadow-color, .33);
 $bg-color: #333;
 
 @font-face {
@@ -29,11 +29,12 @@ $bg-color: #333;
   padding: 0;
 }
 
-html, body {
-  height: 100%;
-  width: 100%;
+html,
+body {
   background-color: $bg-color;
   font-family: Comic Sans MS, Comic Sans, cursive;
+  height: 100%;
+  width: 100%;
 }
 
 ul {
@@ -44,14 +45,15 @@ ul {
   padding: 4%;
 
   * {
+    color: $text-color;
     font-size: 8vw;
     line-height: .98;
-    color: $text-color;
-    text-shadow: 1px 1px $text-shadow-color;
     text-decoration: none;
+    text-shadow: 1px 1px $text-shadow-color;
   }
 
-  h2, a {
+  h2,
+  a {
     display: inline-block;
     transition: transform .2s;
 
@@ -67,18 +69,18 @@ ul {
   }
 
   ul {
-    text-align: center;
     margin: 12% 0 16%;
+    text-align: center;
 
     li {
       padding: 6% 0;
     }
 
     .line {
-      width: 50%;
-      margin: auto;
       border-bottom: 1px solid $line-color;
-      &:last-child { border-bottom: none; }
+      margin: auto;
+      width: 50%;
+      &:last-child { border-bottom: 0; }
     }
   }
 
@@ -87,7 +89,7 @@ ul {
     a { font-size: 10vw; }
   }
 
-  @media screen and (min-aspect-ratio: 10/16) {
+  @media screen and (min-aspect-ratio: 10 / 16) {
     padding: 2.21vh;
     * { font-size: 4.505vh; }
     h2 { font-size: 3.4vh; }

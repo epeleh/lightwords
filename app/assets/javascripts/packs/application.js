@@ -3,9 +3,8 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-require("@rails/ujs").start()
-require("turbolinks").start()
-
+require('@rails/ujs').start()
+require('turbolinks').start()
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -18,7 +17,7 @@ window.onload = function() {
   document.querySelector('#card-next a').onclick = function() {
     const http = new XMLHttpRequest()
 
-    http.onload = function() { location.replace(JSON.parse(this.responseText).id) }
+    http.onload = function() { Turbolinks.visit(JSON.parse(this.responseText).id) }
     http.open('GET', '/api/cards/rand', true)
     http.send()
 

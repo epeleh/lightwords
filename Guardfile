@@ -55,3 +55,38 @@ guard 'livereload' do
   watch(%r{app/helpers/.+\.rb})
   watch(%r{config/locales/.+\.yml})
 end
+
+guard :shell, all_on_start: true do
+  @modified_times ||= {}
+  def check_time(file)
+    mtime = File.mtime(file)
+    return if @modified_times[file] == mtime
+    @modified_times[file] = mtime
+    yield file
+  end
+
+  if File.exist?('.rubocop.yml')
+    @rubocop_exclude ||= YAML.safe_load(File.read('.rubocop.yml')).dig('AllCops', 'Exclude').map { |x| Dir[x] }.flatten
+  end
+
+  # rubocop
+  watch %r{^(app|config|db)/.*\.rb$|^(config.ru|Gemfile|Guardfile|Rakefile)$} do |match|
+    check_time(match[0]) do |file|
+      system %(bundle exec rubocop --format quiet -a '#{file}') unless @rubocop_exclude&.include?(file)
+    end
+  end
+
+  # eslint
+  watch %r{^app/assets/javascripts/.*\.js$|^config/webpack/.*\.js$|^[\w\-.]*\.js$} do |match|
+    check_time(match[0]) do |file|
+      system %(./node_modules/eslint/bin/eslint.js --fix #{file})
+    end
+  end
+
+  # sass-lint
+  watch %r{^app/assets/stylesheets/.*\.scss$} do |match|
+    check_time(match[0]) do |file|
+      system %(sass-lint --cache --config .sass-lint.yml '#{file}' --verbose --no-exit)
+    end
+  end
+end
