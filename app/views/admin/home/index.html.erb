@@ -1,2 +1,12 @@
-<%= link_to('Cards', admin_cards_path) %>
-<%= link_to('Words', admin_words_path) %>
+<div id="admin-home">
+  <% if admin_authorization? %>
+    <%= link_to('Cards', admin_cards_path) %>
+    <%= link_to('Words', admin_words_path) %>
+  <% else %>
+    <form id="login-form" action="#">
+      <label for="password">Password</label>
+      <input type="text" name="password">
+      <button>Submit</button>
+    </form>
+  <% end %>
+</div>

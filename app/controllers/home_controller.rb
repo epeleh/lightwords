@@ -2,6 +2,6 @@
 
 class HomeController < ApplicationController
   def index
-    redirect_to card_url(random_card)
+    redirect_to card_path(random_card)
   end
 end

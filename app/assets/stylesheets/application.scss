@@ -41,6 +41,15 @@ ul {
   list-style-type: none;
 }
 
+.centered {
+  left: 50%;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
 #card {
   padding: 4%;
 
@@ -61,6 +70,10 @@ ul {
       text-shadow: 1px 1px 4px $text-shadow-color;
       transform: scale(1.05);
     }
+
+    &::selection {
+      background-color: $text-shadow-color;
+   }
   }
 
   h2 {
@@ -96,5 +109,14 @@ ul {
     ul { margin: 6.46vh 0 8.613vh; }
     ul li { padding: 3.366vh 0; }
     #card-next a { font-size: 5.666vh; }
+  }
+}
+
+#admin-home {
+  #login-form {
+    @extend .centered;
+    border: 1px solid $line-color;
+    border-radius: 20px;
+    padding: 5%;
   }
 }
