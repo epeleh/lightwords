@@ -24,6 +24,10 @@ $bg-color: #333;
   src: font-url('Comic_Sans_MS.ttf') format('truetype');
 }
 
+.turbolinks-progress-bar {
+  background-color: $line-color;
+}
+
 * {
   margin: 0;
   padding: 0;
