@@ -1,0 +1,28 @@
+@import 'application';
+
+.admin {
+  padding: 16px 22px;
+  h2 { font-size: 32px; }
+  label { font-size: 26px; }
+  a, button { font-size: 38px; }
+}
+
+.admin-home form {
+  text-align: center;
+
+  * {
+    display: block;
+    margin: auto;
+  }
+
+  input {
+    border: 1px solid $line-color;
+    border-radius: 8px;
+    color: $background-color;
+    font-size: 28px;
+    height: 34px;
+    margin: 6px 6px 14px;
+    padding: 0 8px;
+    width: 375px;
+  }
+}

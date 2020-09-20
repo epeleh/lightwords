@@ -2,4 +2,3 @@ rules:
   no-ids: 0
   no-css-comments: 0
   force-element-nesting: 0
-  placeholder-in-extend: 0

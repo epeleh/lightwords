@@ -1,15 +1,4 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
  *= require_tree .
  *= require_self
  */
@@ -17,7 +6,9 @@
 $text-color: #fff;
 $text-shadow-color: #f60;
 $line-color: rgba($text-shadow-color, .33);
-$bg-color: #333;
+$background-color: #333;
+$success-color: green;
+$failure-color: red;
 
 @font-face {
   font-family: 'Comic Sans MS';
@@ -26,23 +17,6 @@ $bg-color: #333;
 
 .turbolinks-progress-bar {
   background-color: $line-color;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-}
-
-html,
-body {
-  background-color: $bg-color;
-  font-family: Comic Sans MS, Comic Sans, cursive;
-  height: 100%;
-  width: 100%;
-}
-
-ul {
-  list-style-type: none;
 }
 
 .centered {
@@ -54,73 +28,59 @@ ul {
   transform: translate(-50%, -50%);
 }
 
-#card {
-  padding: 4%;
+* {
+  margin: 0;
+  padding: 0;
+}
 
-  * {
-    color: $text-color;
-    font-size: 8vw;
-    line-height: .98;
-    text-decoration: none;
-    text-shadow: 1px 1px $text-shadow-color;
+html,
+body {
+  background-color: $background-color;
+  font-family: Comic Sans MS, Comic Sans, cursive;
+  height: 100%;
+  width: 100%;
+}
+
+ul {
+  list-style-type: none;
+}
+
+h2,
+a,
+label,
+button {
+  background: none;
+  border-color: transparent;
+  color: $text-color;
+  display: inline-block;
+  text-decoration: none;
+  text-shadow: 1px 1px $text-shadow-color;
+  transition: transform .2s;
+
+  &:hover {
+    text-shadow: 1px 1px 4px $text-shadow-color;
+    transform: scale(1.05);
   }
 
-  h2,
-  a {
-    display: inline-block;
-    transition: transform .2s;
-
-    &:hover {
-      text-shadow: 1px 1px 4px $text-shadow-color;
-      transform: scale(1.05);
-    }
-
-    &::selection {
-      background-color: $text-shadow-color;
-   }
-  }
-
-  h2 {
-    cursor: default;
-    font-size: 6vw;
-  }
-
-  ul {
-    margin: 12% 0 16%;
-    text-align: center;
-
-    li {
-      padding: 6% 0;
-    }
-
-    .line {
-      border-bottom: 1px solid $line-color;
-      margin: auto;
-      width: 50%;
-      &:last-child { border-bottom: 0; }
-    }
-  }
-
-  #card-next {
-    text-align: center;
-    a { font-size: 10vw; }
-  }
-
-  @media screen and (min-aspect-ratio: 10 / 16) {
-    padding: 2.21vh;
-    * { font-size: 4.505vh; }
-    h2 { font-size: 3.4vh; }
-    ul { margin: 6.46vh 0 8.613vh; }
-    ul li { padding: 3.366vh 0; }
-    #card-next a { font-size: 5.666vh; }
+  &::selection {
+    background-color: $text-shadow-color;
   }
 }
 
-#admin-home {
-  #login-form {
-    @extend .centered;
-    border: 1px solid $line-color;
-    border-radius: 20px;
-    padding: 5%;
+button,
+input {
+  outline: none;
+
+  &::selection {
+    background-color: $text-shadow-color;
   }
+}
+
+h2 {
+  cursor: default;
+}
+
+a,
+button {
+  cursor: pointer;
 }

@@ -27,9 +27,15 @@ $(document).on('turbolinks:load', () => {
 
   if (controller === 'admin/home' && action === 'index') {
     $('#login-form').submit(() => {
-      const password = $('#login-form').serializeArray().filter(({ name }) => name === 'password')[0].value
+      const password = $('#login-form').serializeArray().filter(({ name }) => name === 'password')[0].value.trim()
       Cookies.set('Authorization', password, { expires: 365 })
-      Turbolinks.visit()
+      location.reload()
+      return false
+    })
+
+    $('#logout-link').click(() => {
+      Cookies.remove('Authorization')
+      location.reload()
       return false
     })
   }

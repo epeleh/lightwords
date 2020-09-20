@@ -1,11 +1,27 @@
-<div id="admin-home">
+<div class="admin admin-home">
+  <h2>#Admin</h2>
   <% if admin_authorization? %>
-    <%= link_to('Cards', admin_cards_path) %>
-    <%= link_to('Words', admin_words_path) %>
+    <ul class="centered">
+      <li>
+        <%= link_to(admin_cards_path) do %>
+          <%= image_tag(:forward_arrow) %> Cards
+        <% end %>
+      </li>
+      <li>
+        <%= link_to(admin_words_path) do %>
+          <%= image_tag(:forward_arrow) %> Words
+        <% end %>
+      </li>
+      <li>
+        <%= link_to(admin_root_path, id: 'logout-link') do %>
+          <%= image_tag(:logout) %> Logout
+        <% end %>
+      </li>
+    </ul>
   <% else %>
-    <form id="login-form" action="#">
+    <form id="login-form" action="#" autocomplete="off" class="centered">
       <label for="password">Password</label>
-      <input type="text" name="password">
+      <input type="text" name="password" spellcheck="false">
       <button>Submit</button>
     </form>
   <% end %>

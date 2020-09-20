@@ -1,0 +1,45 @@
+@import 'application';
+
+.card {
+  padding: 4%;
+
+  * {
+    font-size: 8vw;
+    line-height: .98;
+  }
+
+  h2 {
+    font-size: 6vw;
+  }
+
+  ul {
+    margin: 12% 0 16%;
+    text-align: center;
+
+    li {
+      padding: 6% 0;
+    }
+
+    .line {
+      border-bottom: 1px solid $line-color;
+      margin: auto;
+      width: 50%;
+      &:last-child { border-bottom: 0; }
+    }
+  }
+
+  #card-next {
+    margin-bottom: 4%;
+    text-align: center;
+    a { font-size: 10vw; }
+  }
+
+  @media screen and (min-aspect-ratio: 10 / 16) {
+    padding: 2.21vh;
+    * { font-size: 4.505vh; }
+    h2 { font-size: 3.4vh; }
+    ul { margin: 6.46vh 0 8.613vh; }
+    ul li { padding: 3.366vh 0; }
+    #card-next a { font-size: 5.666vh; }
+  }
+}
