@@ -2,9 +2,15 @@
 
 .admin {
   padding: 16px 22px;
+  a { font-size: 38px; }
   h2 { font-size: 32px; }
   label { font-size: 26px; }
-  a, button { font-size: 38px; }
+  button { font-size: 38px; }
+
+  img {
+    height: 32px;
+    width: 32px;
+  }
 }
 
 .admin-home form {

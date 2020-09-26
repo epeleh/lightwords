@@ -10,9 +10,25 @@ $.ajaxSetup({
   beforeSend: (xhr) => xhr.setRequestHeader('Authorization', Cookies.get('Authorization'))
 })
 
+const viewedCards = new Set()
+
+function currentCardId() {
+  if (!/^\/(c|cards)\/\d*/.test(location.pathname)) { return null }
+  return +location.pathname.split('/').slice(-1)
+}
+
 function nextCard(e) {
   if (e.type !== 'click' && e.code !== 'Space') { return false }
-  $.get('/api/cards/rand', (card) => Turbolinks.visit(card.id))
+
+  if (Array.from(viewedCards).slice(0, -1).includes(currentCardId())) {
+    history.forward()
+  } else {
+    $.get('/api/cards/rand', (card) => {
+      viewedCards.delete(card.id)
+      Turbolinks.visit(card.id)
+    })
+  }
+
   return false
 }
 
@@ -21,6 +37,7 @@ $(document).on('turbolinks:load', () => {
   const action = $('body').data('action')
 
   if (controller === 'cards' && action === 'show') {
+    viewedCards.add(currentCardId())
     $('#card-next a').click(nextCard)
     $('body').keyup(nextCard)
   }
