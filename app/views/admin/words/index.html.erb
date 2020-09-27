@@ -1,3 +1,16 @@
 <div class="admin admin-words">
-  <h2>#<%= controller_name.capitalize %></h2>
+  <ul>
+    <li>
+      <h2>#<%= controller_name.capitalize %></h2>
+    </li>
+    <li>
+      <%= link_to(admin_root_path) do %>
+        <%= image_tag(:backward_arrow) %> Back
+      <% end %>
+    </li>
+  </ul>
+  <form id="upload-words-form" action="#" autocomplete="off">
+    <input type="text">
+    <button>Upload</button>
+  </form>
 </div>

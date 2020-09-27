@@ -6,5 +6,5 @@ class Word < ApplicationRecord
   scope :used, -> { where.not(card_id: nil) }
   scope :unused, -> { where(card_id: nil) }
 
-  validates :text, uniqueness: true, length: { minimum: 2, maximum: 64 }
+  validates :text, presence: true, uniqueness: { case_sensitive: false }, length: { minimum: 2, maximum: 64 }
 end

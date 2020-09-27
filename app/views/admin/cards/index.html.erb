@@ -1,3 +1,12 @@
 <div class="admin admin-cards">
-  <h2>#<%= controller_name.capitalize %></h2>
+  <ul>
+    <li>
+      <h2>#<%= controller_name.capitalize %></h2>
+    </li>
+    <li>
+      <%= link_to(admin_root_path) do %>
+        <%= image_tag(:backward_arrow) %> Back
+      <% end %>
+    </li>
+  </ul>
 </div>

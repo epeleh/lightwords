@@ -11,24 +11,38 @@
     height: 32px;
     width: 32px;
   }
+
+  form {
+    text-align: center;
+
+    * {
+      display: block;
+      margin: auto;
+    }
+
+    input {
+      border: 1px solid $line-color;
+      border-radius: 8px;
+      color: $background-color;
+      font-size: 28px;
+      height: 34px;
+      margin: 6px auto 14px;
+      padding: 0 6px;
+      text-align: center;
+      transition: background-color .8s;
+      width: 375px;
+
+      &.invalid { background-color: $failure-color; }
+
+      &[title] {
+        background-image: image-url(alert);
+        background-position: left 6px center;
+        background-repeat: no-repeat;
+      }
+    }
+  }
 }
 
-.admin-home form {
-  text-align: center;
-
-  * {
-    display: block;
-    margin: auto;
-  }
-
-  input {
-    border: 1px solid $line-color;
-    border-radius: 8px;
-    color: $background-color;
-    font-size: 28px;
-    height: 34px;
-    margin: 6px 6px 14px;
-    padding: 0 8px;
-    width: 375px;
-  }
+.admin-words form {
+  margin-top: 42px;
 }
