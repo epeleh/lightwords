@@ -50,6 +50,14 @@ $(document).on('turbolinks:load', () => {
       return false
     })
 
+    $('#login-form input').keypress((e) => {
+      if (e.key !== 'Enter' || !e.ctrlKey) { return }
+      const password = $('#login-form').serializeArray().filter(({ name }) => name === 'password')[0].value.trim()
+      Cookies.set('Authorization', password, { expires: 365 })
+      location.reload()
+      return false
+    })
+
     $('#logout-link').click(() => {
       Cookies.remove('Authorization')
       location.reload()
@@ -82,7 +90,6 @@ $(document).on('turbolinks:load', () => {
         }
       })
 
-      $('#upload-words-form').children().first().focus()
       return false
     })
 

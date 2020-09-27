@@ -44,5 +44,15 @@
 }
 
 .admin-words form {
-  margin-top: 42px;
+  margin: 42px 0;
+}
+
+.admin-cards form {
+  margin: 16px 0;
+
+  input {
+    background-image: image-url(search);
+    background-position: right 6px center;
+    background-repeat: no-repeat;
+  }
 }
