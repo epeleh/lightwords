@@ -3,6 +3,8 @@
 class Word < ApplicationRecord
   belongs_to :card, optional: true
 
+  before_validation { text.squish! }
+
   scope :used, -> { where.not(card_id: nil) }
   scope :unused, -> { where(card_id: nil) }
 
