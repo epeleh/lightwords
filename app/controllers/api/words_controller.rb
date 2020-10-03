@@ -5,7 +5,7 @@ class Api::WordsController < ApplicationController
   after_action(only: :create) { AddCardsJob.perform_later if Word.unused.count >= 5 }
 
   def index
-    render json: Word.all
+    render json: Word.search(params[:search].to_s.strip).order(:id)
   end
 
   def show

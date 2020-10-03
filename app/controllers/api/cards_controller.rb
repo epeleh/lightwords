@@ -2,7 +2,7 @@
 
 class Api::CardsController < ApplicationController
   def index
-    render json: Card.all
+    render json: Card.includes(:words).search(params[:search].to_s.strip).order(:id)
   end
 
   def show
