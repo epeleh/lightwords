@@ -74,7 +74,9 @@ $(document).on('turbolinks:load', () => {
         if (text) { return { text } }
       }).get()
 
-      $.post('/api/words', JSON.stringify({ words }), (data) => {
+      $.post('/api/words', JSON.stringify({ words })).always((response) => {
+        const data = response.responseJSON || response
+
         const validWords = data.filter((x) => !x.errors).map(({ text }) => text)
         inputs.filter((_, x) => validWords.includes($(x).val())).remove()
 

@@ -16,8 +16,8 @@ class Api::WordsController < ApplicationController
     if words_params.present?
       words = words_params.map(&Word.method(:new))
       words.each(&:save)
-      words.map! { |word| word.valid? ? word : word.attributes.merge!({ errors: word.errors }) }
-      return render json: words, status: (:unprocessable_entity if words.any? { |x| x.class == ActiveModel::Errors })
+      words.map! { |word| word.valid? ? word : word.attributes.symbolize_keys.merge!({ errors: word.errors }) }
+      return render json: words, status: (:unprocessable_entity if words.none? { |x| x.is_a? Word })
     end
 
     word = Word.new(word_params)
