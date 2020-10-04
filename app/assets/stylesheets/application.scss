@@ -27,31 +27,12 @@ $failure-color: #faa;
   transform: translate(-50%, -50%);
 }
 
-* {
-  margin: 0;
-  padding: 0;
-}
-
-html,
-body {
-  background-color: $background-color;
-  font-family: Comic Sans MS, Comic Sans, cursive;
-  height: 100%;
-  width: 100%;
-}
-
-ul {
-  list-style-type: none;
-}
-
-h2,
-a,
-label,
-button {
+%common-text {
   background: none;
   border-color: transparent;
   color: $text-color;
   display: inline-block;
+  font-family: Comic Sans MS, Comic Sans, cursive;
   text-decoration: none;
   text-shadow: 1px 1px $text-shadow-color;
   transition: transform .2s;
@@ -64,6 +45,29 @@ button {
   &::selection {
     background-color: $text-shadow-color;
   }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  background-color: $background-color;
+  height: 100%;
+  width: 100%;
+}
+
+ul {
+  list-style-type: none;
+}
+
+h2,
+a,
+label,
+button {
+  @extend %common-text;
 }
 
 button,

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Card < ApplicationRecord
-  has_many :words, dependent: :nullify
+  has_many :words, -> { order(:id) }, dependent: :nullify
 
   before_save { self.used_at ||= Time.now.utc }
 

@@ -10,6 +10,18 @@ $.ajaxSetup({
   beforeSend: (xhr) => xhr.setRequestHeader('Authorization', Cookies.get('Authorization'))
 })
 
+$.each(['put', 'delete'], (_, type) => {
+  $[type] = (url, data, success, dataType) => {
+    if ($.isFunction(data)) {
+      dataType = dataType || success
+      success = data
+      data = undefined
+    }
+
+    return $.ajax({ url, type, dataType, data, success })
+  }
+})
+
 const viewedCards = new Set()
 
 function currentCardId() {
@@ -150,4 +162,93 @@ $(document).on('turbolinks:load', () => {
       return false
     })
   }
+
+  if (controller === 'admin/cards' && action === 'index') {
+    $('body').css('overflow-y', 'scroll')
+
+    $('#search-cards-form').submit(() => false)
+
+    let popstateTrigger = false
+    $('#search-cards-form input').val(new URLSearchParams(location.search).get('search')).on('input', (e) => {
+      const search = $(e.target).val()
+
+      if (!popstateTrigger) {
+        const pushLocation = search ? `${location.pathname}?search=${search}` : location.pathname
+        history.pushState(null, null, pushLocation)
+      }
+      popstateTrigger = false
+
+      $.get('/api/cards', { search }, (cards) => {
+        const cardsList = $('#cards-list')
+        cardsList.children('.card:not(#dummy-card)').remove()
+
+        for (const card of cards.reverse()) {
+          const dummyCard = $('#dummy-card').clone(true).removeAttr('id').removeAttr('style')
+          dummyCard.children('h2').html('#' + card.id)
+
+          const inputs = dummyCard.find('li input')
+          card.words.forEach((word, i) => $(inputs[i]).data({ word }).val(word.text))
+
+          cardsList.append(dummyCard)
+        }
+      })
+    })
+
+    $(window).off().on('popstate', () => {
+      popstateTrigger = true
+      $('#search-cards-form input').val(new URLSearchParams(location.search).get('search')).trigger('input')
+    }).trigger('popstate')
+
+    $('.card h2').click((e) => Turbolinks.visit('/c/' + $(e.target).html().replace(/^\D+/g, '')))
+
+    $('.card input').keypress((e) => {
+      if (e.key !== 'Enter') { return }
+
+      if (e.ctrlKey) {
+        $(e.target).parents().eq(2).children('button').trigger('click')
+      } else {
+        $(e.target).parent().next('div').next('li').children('input').focus()
+      }
+    })
+
+    $('.card input').keyup((e) => {
+      switch (e.key) {
+        case 'ArrowDown': $(e.target).parent().next('div').next('li').children('input').focus(); break
+        case 'ArrowUp': $(e.target).parent().prev('div').prev('li').children('input').focus(); break
+      }
+    })
+
+    $('.card input').change((e) => $(e.target).val($(e.target).val().trim()))
+
+    $('.card input').on('input', (e) => {
+      $(e.target).data('changed', true)
+
+      const errors = $(e.target).parents().eq(2).find('li').filter((_, x) => $(x).attr('title')).length
+      const inputs = $(e.target).parents().eq(2).find('li input')
+      const disabled = !inputs.filter((_, x) => $(x).data('word').text !== $(x).val().trim()).length && !errors
+
+      $(e.target).parents().eq(2).children('button').prop({ disabled })
+    })
+
+    $('.card button').click((e) => {
+      if ($(e.target).prop('disabled')) { return }
+      $(e.target).prop('disabled', true)
+
+      $(e.target).parent().find('input').map((_, x) => $(x)).each((_, input) => {
+        if (input.data('word').text === input.val().trim()) { return }
+
+        $.put(`/api/words/${input.data('word').id}`, JSON.stringify({ word: { text: input.val() } }))
+          .fail(({ responseJSON: errors }) => input.parent().attr('title', errors.text.join('\n')))
+          .done((word) => {
+            input.parent().removeAttr('title')
+            input.data({ word })
+          })
+      })
+    })
+  }
+})
+
+$(document).on('turbolinks:before-cache', () => {
+  $('#upload-words-form input').slice(0, -1).remove()
+  $('#cards-list').children('.card:not(#dummy-card)').remove()
 })
