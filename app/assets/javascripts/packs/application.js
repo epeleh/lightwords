@@ -52,6 +52,11 @@ $(document).on('turbolinks:load', () => {
     viewedCards.add(currentCardId())
     $('#card-next a').click(nextCard)
     $('body').keyup(nextCard)
+
+    $(window).off().on('popstate', () => {
+      if (/^\/c(ards)?(\/\d*)?$/.test(location.pathname)) { return }
+      Turbolinks.visit(window.location, { action: 'replace' })
+    })
   }
 
   if (controller === 'admin/home' && action === 'index') {
