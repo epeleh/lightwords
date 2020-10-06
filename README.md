@@ -1,24 +1,36 @@
-# README
+# Light Words
+Words for the Alias (Crocodile) game.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Description
+The application simply shows you a card with five random words - you should explain them.
 
-Things you may want to cover:
+As an administrator, you can add new words and modify existing cards. Visit http://lightwords.ru/admin page.
+Use the `SECRET_KEY_BASE` variable to set the password for accessing the admin panel.
 
-* Ruby version
+## Launch
 
-* System dependencies
+Install dependencies:
+```bash
+rbenv install
+bundle install
+yarn install
+```
 
-* Configuration
+Set environment variables:
+```bash
+export RAILS_ENV='production'
+export RAILS_SERVE_STATIC_FILES='true'
+export RAILS_MASTER_KEY='123..'
+export SECRET_KEY_BASE='admin-password-123'
+```
 
-* Database creation
+Set up the database and start the server:
+```bash
+rails db:setup
+rails server
+```
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Or run via docker:
+```bash
+docker-compose up
+```
