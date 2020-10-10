@@ -1,12 +1,14 @@
-<div class="card">
-  <h2>#<%= @card.id %></h2>
-  <ul>
-    <% @card.words.sort_by(&:id).pluck(:text).map!(&:upcase_first).each do |word| %>
-    <li><%= link_to(word, "https://ru.wikipedia.org/wiki/#{word}") %></li>
-    <div class="line"></div>
-    <% end %>
-  </ul>
-  <div id="card-next">
-    <%= link_to('next', root_path) %>
+<% cache @card do %>
+  <div class="card">
+    <h2>#<%= @card.id %></h2>
+    <ul>
+      <% @card.words.sort_by(&:id).pluck(:text).map!(&:upcase_first).each do |word| %>
+      <li><%= link_to(word, "https://ru.wikipedia.org/wiki/#{word}") %></li>
+      <div class="line"></div>
+      <% end %>
+    </ul>
+    <div id="card-next">
+      <%= link_to('next', root_path) %>
+    </div>
   </div>
-</div>
+<% end %>

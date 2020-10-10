@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Word < ApplicationRecord
-  belongs_to :card, optional: true
+  belongs_to :card, optional: true, touch: true
 
   before_validation { text.squish! }
 

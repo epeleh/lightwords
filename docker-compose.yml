@@ -8,16 +8,12 @@ services:
       POSTGRES_USER: $POSTGRES_USER
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
       PGDATA: /var/lib/postgresql/data/pgdata
-    ports:
-      - "5432:5432"
     volumes:
-      - ~/srv/data/postgres:/var/lib/postgresql/data \
+      - ~/srv/data/postgres:/var/lib/postgresql/data
 
   cache:
     image: redis:6
     restart: always
-    ports:
-      - "6379:6379"
     volumes:
       - ~/srv/data/redis:/data
     entrypoint: redis-server --appendonly yes
