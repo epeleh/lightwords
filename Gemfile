@@ -22,6 +22,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'erb_lint', require: false
   gem 'guard-livereload', require: false
   gem 'guard-shell'
   gem 'listen', '~> 3.2'

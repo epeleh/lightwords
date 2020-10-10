@@ -76,11 +76,14 @@ guard :shell, all_on_start: true do
     end
   end
 
+  # erblint
+  watch %r{^app/views/.*\.erb$} do |match|
+    check_time(match[0]) { |file| system %(bundle exec erblint -a '#{file}') }
+  end
+
   # eslint
   watch %r{^app/assets/javascripts/.*\.js$|^config/webpack/.*\.js$|^[\w\-.]*\.js$} do |match|
-    check_time(match[0]) do |file|
-      system %(./node_modules/eslint/bin/eslint.js --fix #{file})
-    end
+    check_time(match[0]) { |file| system %(./node_modules/eslint/bin/eslint.js --fix '#{file}') }
   end
 
   # sass-lint
