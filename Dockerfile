@@ -15,4 +15,6 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
 && apt-get update -y && apt-get install -y yarn
 
 RUN bundle install && bundle exec rails assets:precompile
-CMD (bundle exec rails db:migrate 2>/dev/null || bundle exec rails db:setup) && bundle exec rails server
+CMD rm -f tmp/pids/server.pid \
+&& (bundle exec rails db:migrate 2>/dev/null || bundle exec rails db:setup) \
+&& bundle exec rails server
